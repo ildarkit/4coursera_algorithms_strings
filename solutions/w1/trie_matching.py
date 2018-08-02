@@ -1,13 +1,6 @@
 # python3
 import sys
 
-NA = -1
-
-
-class Node:
-    def __init__ (self):
-        self.next = [NA] * 4
-
 
 def solve(text, n, patterns):
     # write your code here
@@ -47,6 +40,12 @@ def build_trie(patterns):
 
 
 def prefix_trie_matching(text, trie):
+    """
+    Search for matches in the prefix trie.
+    :param text: The text in which the match with patterns in the prefix trie.
+    :param trie: Prefix trie.
+    :return: list of matched positions.
+    """
     result = []
     for i in range(len(text)):
         symbol = text[i]
@@ -54,15 +53,21 @@ def prefix_trie_matching(text, trie):
         j = i
         while True:
             if trie.get(v) is None:
+                # reached the leaf of a branch
+                # the pattern matched
+                # add index of position in text
                 result.append(i)
                 break
             elif symbol in trie.get(v, {}):
+                # getting the next node
+                v = trie[v][symbol]
                 j += 1
                 if j < len(text):
+                    # getting the next symbol
                     symbol = text[j]
                 else:
-                    break
-                v = trie[v][symbol]
+                    # reached the end of the text
+                    symbol = '$'
             else:
                 break
     return result
