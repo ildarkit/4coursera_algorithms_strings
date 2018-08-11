@@ -21,7 +21,7 @@ def inverse_btw(bwt):
             break
         i = first_column[item_in_last_column]
 
-    return "".join(result)
+    return ''.join(result)
 
 
 def sorting(item):
