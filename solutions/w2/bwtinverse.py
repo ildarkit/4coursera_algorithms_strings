@@ -1,6 +1,5 @@
 # python3
 import sys
-from collections import OrderedDict
 
 
 def inverse_bwt(bwt):
@@ -10,7 +9,6 @@ def inverse_bwt(bwt):
     :return: string
     """
     count = {'$': 0, 'A': 0, 'C': 0, 'G': 0, 'T': 0}
-    count = OrderedDict(count)
     num = {'$': 0, 'A': 1, 'C': 2, 'G': 3, 'T': 4}
     first_column = count_sort(bwt, count, num)
     i = 0
@@ -32,7 +30,7 @@ def count_sort(seq, count, num):
     for symbol in seq:
         count[symbol] = count[symbol] + 1
     pos = [0 for _ in range(len(count))]
-    for i, key in enumerate(count):
+    for i, key in enumerate(sorted(count.keys())):
         if i < len(count) - 1:
             pos[i + 1] = pos[i] + count[key]
     for i in range(len(seq)):
