@@ -24,7 +24,7 @@ def inverse_bwt(bwt):
             break
         i = first_column[(item_in_last_column, i)]
 
-    return "".join(result)
+    return ''.join(result)
 
 
 def count_sort(seq, count, num):
