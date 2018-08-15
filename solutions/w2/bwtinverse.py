@@ -13,28 +13,33 @@ def inverse_bwt(bwt):
     first_column = count_sort(bwt, count, num)
     i = 0
     result = []
-    while True:
-        item_in_last_column = bwt[i]
-        if item_in_last_column != '$':
-            result.insert(0, item_in_last_column)
-        else:
-            result.append(item_in_last_column)
-            break
-        i = first_column[(item_in_last_column, i)]
-
-    return ''.join(result)
+    while bwt[i] != '$':
+        result.append(bwt[i])
+        i = first_column[i]
+    return ''.join(reversed(result)) + bwt[i]
 
 
 def count_sort(seq, count, num):
-    sorted_seq = dict()
+    """
+    Implementation of sorting by counting.
+    :param seq: unsorted string
+    :param count: dict for counting of chars
+    :param num: representation of symbols in their numerical values, need for indexing
+    :return: dict of indexes of chars in first and last columns
+    """
+    sorted_seq = [None for _ in range(len(seq))]
+    # counting of symbols
     for symbol in seq:
         count[symbol] = count[symbol] + 1
     pos = [0 for _ in range(len(count))]
+    # finding the position of the next symbol
     for i, key in enumerate(sorted(count.keys())):
         if i < len(count) - 1:
             pos[i + 1] = pos[i] + count[key]
+    # matching the symbol indices of the last column
+    # to the symbol indexes in the first
     for i in range(len(seq)):
-        sorted_seq[(seq[i], i)] = pos[num[seq[i]]]
+        sorted_seq[i] = pos[num[seq[i]]]
         pos[num[seq[i]]] = pos[num[seq[i]]] + 1
     return sorted_seq
 
