@@ -25,7 +25,7 @@ def count_sort(seq, count, num):
     :param seq: unsorted string
     :param count: dict for counting of chars
     :param num: representation of symbols in their numerical values, need for indexing
-    :return: dict of indexes of chars in first and last columns
+    :return: list of indexes of chars in first and last columns
     """
     sorted_seq = [None for _ in range(len(seq))]
     # counting of symbols
